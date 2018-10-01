@@ -36,3 +36,16 @@ func calculateHash(block Block) string {
 	hashed := h.Sum(nil)
 	return hex.EncodeToString(hashed)
 }
+
+func generateBlock(oldBlock Block, BMP int) (Block, error) {
+	var newBlock Block
+	t := time.Now()
+
+	newBlock.Index = oldBlock.Index + 1
+	newBlock.Timestamp = t.String()
+	newBlock.BMP = BMP
+	newBlock.PrevHash = oldBlock.Hash
+	newBlock.Hash = calculateHash(newBlock)
+
+	return newBlock, nil 
+}
