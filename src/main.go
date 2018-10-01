@@ -48,3 +48,27 @@ func generateBlock(oldBlock Block, BMP int) (Block, error) {
 
 	return newBlock, nil 
 }
+
+func isBlockValid(newBlock, oldBlock Block) bool {
+	if oldBlock.Index+1 != newBlock.Index {
+		return false
+	}
+
+	if oldBlock.Hash != newBlock.PrevHash {
+		return false
+	}
+
+	if calculateHash(newBlock) != newBlock.Hash {
+		return false
+	}
+
+	return true
+
+}
+
+func replaceChain(newBlocks []Block){
+	if len(newBlocks) > len(Blockchain) {
+		Blockchain = newBlocks
+	}
+}
+
