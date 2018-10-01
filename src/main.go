@@ -1,20 +1,38 @@
-package main 
+package main
 
 import (
-	"fmt"
 	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
+	"fmt"
+	"github.com/davecgh/go-spew/spew"
+	"github.com/gorilla/mux"
+	"github.com/joho/godotenv"
 	"io"
 	"log"
 	"net/http"
 	"os"
 	"time"
-	"github.com/davecgh/go-spew/spew"
-	"github.com/gorilla/mux"
-	"github.com/joho/godotenv"
 )
 
-func main(){
-	fmt.Println("hello")
+type Block struct {
+	Index     int
+	Timestamp string
+	BMP       int
+	Hash      string
+	PrevHash  string
+}
+
+var Blockchain []Block
+
+func main() {
+	fmt.Println("blockchain")
+}
+
+func calculateHash(block Block) string {
+	record := string(block.Index) + block.Timestamp + string(block.BMP) + block.PrevHash
+	h := sha256.New()
+	h.Write([]byte(record))
+	hashed := h.Sum(nil)
+	return hex.EncodeToString(hashed)
 }
