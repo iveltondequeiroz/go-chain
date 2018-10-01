@@ -30,7 +30,22 @@ type Message struct {
 var Blockchain []Block
 
 func main() {
-	fmt.Println("blockchain")
+	fmt.Println("here we go")
+	
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	go func() {
+		t := time.Now()
+		genesisBlock := Block{0, t.String(), 0, "", ""}
+		spew.Dump(genesisBlock)
+		Blockchain = append(Blockchain, genesisBlock)
+
+	}()
+
+	log.Fatal(run())
 }
 
 func calculateHash(block Block) string {
