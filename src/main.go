@@ -1,18 +1,20 @@
 package main
 
 import (
+	"bufio"
 	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
-	"fmt"
-	"github.com/davecgh/go-spew/spew"
-	"github.com/gorilla/mux"
-	"github.com/joho/godotenv"
 	"io"
 	"log"
-	"net/http"
+	"net"
 	"os"
+	"strconv"
 	"time"
+
+	"github.com/davecgh/go-spew/spew"
+	"github.com/joho/godotenv"
+	
 )
 
 type Block struct {
@@ -31,7 +33,7 @@ var Blockchain []Block
 
 func main() {
 	fmt.Println("here we go")
-	
+
 	err := godotenv.Load()
 	if err != nil {
 		log.Fatal(err)
